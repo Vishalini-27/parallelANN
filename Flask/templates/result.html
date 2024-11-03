@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        .result {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .faster-message {
+            color: #2d8a2d;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Prediction Results</h2>
+    <div class="result">
+        <h3>Model: Serial</h3>
+        <p>Prediction: <strong>{{ prediction_serial }}</strong></p>
+        <p>Time taken: <strong>{{ time_serial | round(4) }} seconds</strong></p>
+    </div>
+    <div class="result">
+        <h3>Model: Parallel</h3>
+        <p>Prediction: <strong>{{ prediction_parallel }}</strong></p>
+        <p>Time taken: <strong>{{ time_parallel | round(4) }} seconds</strong></p>
+    </div>
+
+    {% if is_parallel_faster %}
+        <div class="faster-message">The parallel model was faster than the serial model!</div>
+    {% else %}
+        <div class="faster-message">The serial model was faster than the parallel model.</div>
+    {% endif %}
+
+    <img src="{{ url_for('static', filename=img_path) }}" alt="Uploaded Papaya Image">
+    <a href="{{ url_for('home') }}">Go Back</a>
+</body>
+</html>
